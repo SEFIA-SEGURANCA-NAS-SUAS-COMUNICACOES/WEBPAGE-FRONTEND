@@ -10,7 +10,7 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
+import { reportError } from "../lib/error-reporting";
 
 function NotFoundComponent() {
   return (
@@ -38,7 +38,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    reportError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (
@@ -83,6 +83,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content:
           "SEFIA é a primeira plataforma comunitária angolana de inteligência contra fraudes telefónicas e digitais. Analise SMS, consulte números suspeitos e proteja-se contra burlas.",
       },
+      { name: "keywords", content: "fraudes, segurança, Angola, SMS, phishing, burlas, proteção digital, inteligência coletiva" },
+      { name: "author", content: "SEFIA" },
       { property: "og:title", content: "SEFIA | Segurança Inteligente para suas Comunicações" },
       {
         property: "og:description",
@@ -90,9 +92,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Plataforma comunitária angolana de inteligência contra fraudes telefónicas e digitais.",
       },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
+      { property: "og:url", content: "https://www.sefia.ao" },
+      { property: "og:image", content: "https://www.sefia.ao/assets/image.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: "https://www.sefia.ao/assets/image.png" },
+      { name: "theme-color", content: "#002b5c" },
     ],
     links: [
+      { rel: "canonical", href: "https://www.sefia.ao" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
@@ -113,10 +120,33 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: ReactNode }) {
+  const jsonLd = JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "SEFIA",
+    url: "https://www.sefia.ao",
+    logo: "https://www.sefia.ao/assets/sefia-logo.png",
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        email: "suporte@sefia.ao",
+        contactType: "customer support",
+        availableLanguage: ["Portuguese"],
+      },
+    ],
+    sameAs: [
+      "https://www.tiktok.com/@sefia",
+      "https://www.facebook.com/sefia",
+      "https://www.instagram.com/sefia",
+      "https://www.linkedin.com/company/sefia",
+    ],
+  });
+
   return (
     <html lang="en">
       <head>
         <HeadContent />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd }} />
       </head>
       <body>
         {children}

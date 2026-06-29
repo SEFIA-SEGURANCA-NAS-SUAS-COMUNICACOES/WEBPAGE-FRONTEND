@@ -85,10 +85,10 @@ function Index() {
                 </div>
               </a>
             </div>
-            <div className="mt-16 sm:mt-20 w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
+            <div className="mt-12 sm:mt-16 w-full max-w-sm sm:max-w-sm md:max-w-sm mx-auto">
               <img
                 alt="SEFIA App Mockup"
-                className="w-full h-auto phone-mockup-shadow rounded-[3rem] border-8 border-white/5"
+                className="phone-mockup phone-mockup-shadow rounded-[3rem] border-8 border-white/5 mx-auto"
                 src={HERO_MOCKUP}
               />
             </div>
