@@ -1,0 +1,103 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: #001736;
+  --color-surface: #001b3e;
+  --color-surface-dim: #000f24;
+  --color-surface-bright: #002147;
+  --color-on-surface: #f2f4f6;
+  --color-on-surface-variant: #94a3b8;
+  --color-on-background: #f7f9fb;
+  --color-primary: #002b5c;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #002b5c;
+  --color-on-primary-container: #7594cb;
+  --color-primary-fixed: #d6e3ff;
+  --color-primary-fixed-dim: #aac7ff;
+  --color-on-primary-fixed: #001b3e;
+  --color-on-primary-fixed-variant: #A0B6D3;
+  --color-secondary: #bb001e;
+  --color-secondary-container: #e12531;
+
+  --font-display: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  --font-heading: "Space Grotesk", "Plus Jakarta Sans", sans-serif;
+  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-emoji: "Noto Color Emoji", "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+
+  --spacing-margin-page: 40px;
+  --container-max-container-max: 1280px;
+
+  --radius-xl: 0.75rem;
+}
+
+@utility max-w-container-max {
+  max-width: 1280px;
+}
+@utility px-margin-page {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+@media (max-width: 640px) {
+  .px-margin-page {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+.security-mesh {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 0.5px, transparent 0.5px);
+  background-size: 40px 40px;
+}
+.hero-gradient {
+  background: radial-gradient(circle at 50% 50%, #002b5c 0%, #001736 100%);
+}
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+.phone-mockup-shadow {
+  box-shadow:
+    0 50px 100px -20px rgba(0, 0, 0, 0.8),
+    0 30px 60px -30px rgba(0, 0, 0, 0.5);
+}
+.accent-underline {
+  background: linear-gradient(90deg, transparent, #aac7ff, transparent);
+  height: 1px;
+  width: 100%;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
