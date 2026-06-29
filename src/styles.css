@@ -83,12 +83,6 @@
     0 50px 100px -20px rgba(0, 0, 0, 0.8),
     0 30px 60px -30px rgba(0, 0, 0, 0.5);
 }
-/* Constrain phone mockup size for hero preview */
-.phone-mockup {
-  max-width: 320px;
-  width: 100%;
-  height: auto;
-}
 .accent-underline {
   background: linear-gradient(90deg, transparent, #aac7ff, transparent);
   height: 1px;
