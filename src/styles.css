@@ -89,6 +89,14 @@
   width: 100%;
 }
 
+.hero-mockup {
+  transform-origin: center;
+  transition: transform 400ms ease, filter 300ms ease;
+}
+.hero-play-button {
+  backdrop-filter: blur(4px);
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
