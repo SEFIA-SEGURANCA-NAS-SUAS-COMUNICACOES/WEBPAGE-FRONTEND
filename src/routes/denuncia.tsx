@@ -5,8 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { FraudType } from "@/types/report";
 import { useCreateReport } from "@/hooks/useCreateReport";
-import { useState } from "react";
-
 export const Route = createFileRoute("/denuncia")({
   component: DenunciaPage,
 });
@@ -14,8 +12,8 @@ export const Route = createFileRoute("/denuncia")({
 const phoneRegex = /^9\d{2} \d{3} \d{3}$/;
 
 const reportSchema = z.object({
-  reporterPhoneNumber: z.string().regex(phoneRegex, "Deve ser um número angolano válido (ex: 923 123 456)"),
-  reportedPhoneNumber: z.string().regex(phoneRegex, "Deve ser um número angolano válido (ex: 923 123 456)"),
+  reporterPhoneNumber: z.string().regex(phoneRegex, "Deve ser um número angolano válido (ex: 923123456)"),
+  reportedPhoneNumber: z.string().regex(phoneRegex, "Deve ser um número angolano válido (ex: 923123456)"),
   fraudType: z.nativeEnum(FraudType, { errorMap: () => ({ message: "Selecione o tipo de fraude" }) }),
   description: z.string().min(10, "A descrição deve ter pelo menos 10 caracteres"),
   anonymous: z.boolean(),
