@@ -216,7 +216,7 @@ export function Layout({ children }: { children: ReactNode }) {
                 {[
                   { label: "Proteção de Dados", path: "/privacy" },
                   { label: "Termos de Uso", path: "/terms" },
-                  { label: "Ajuda & FAQ", path: "/#faq" },
+                  { label: "Ajuda & FAQ", path: "/faq" },
                 ].map((l) => (
                   <li key={l.label}>
                     {l.path.startsWith("/") && !l.path.includes("#") ? (
