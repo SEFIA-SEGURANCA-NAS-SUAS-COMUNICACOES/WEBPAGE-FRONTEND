@@ -35,7 +35,7 @@ function Index() {
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   const navLinks = [
-    { label: "Sobre", href: "#" },
+    { label: "Início", href: "#" },
     { label: "Como Funciona", href: "#como-funciona" },
     { label: "Público-Alvo", href: "#publico-alvo" },
     { label: "Perguntas-Frequentes", href: "#faq" },
@@ -55,15 +55,27 @@ function Index() {
             />
           </a>
           <nav className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                className="text-sm font-medium text-on-surface hover:text-primary-fixed-dim transition-colors"
-                href={link.href}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) =>
+              link.label === "Denunciar" ? (
+                <button
+                  key={link.label}
+                  type="button"
+                  onClick={openDownloadModal}
+                  aria-haspopup="dialog"
+                  className="text-sm font-medium text-on-surface hover:text-primary-fixed-dim transition-colors"
+                >
+                  {link.label}
+                </button>
+              ) : (
+                <a
+                  key={link.label}
+                  className="text-sm font-medium text-on-surface hover:text-primary-fixed-dim transition-colors"
+                  href={link.href}
+                >
+                  {link.label}
+                </a>
+              ),
+            )}
           </nav>
           <div className="md:hidden">
             <button
@@ -101,16 +113,31 @@ function Index() {
               </button>
             </div>
             <nav className="flex flex-col gap-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  onClick={closeMobileMenu}
-                  href={link.href}
-                  className="rounded-2xl px-4 py-3 text-sm font-medium text-on-surface hover:bg-white/5 hover:text-white transition-colors"
-                >
-                  {link.label}
-                </a>
-              ))}
+              {navLinks.map((link) =>
+                link.label === "Denunciar" ? (
+                  <button
+                    key={link.label}
+                    type="button"
+                    onClick={() => {
+                      closeMobileMenu();
+                      openDownloadModal();
+                    }}
+                    aria-haspopup="dialog"
+                    className="rounded-2xl px-4 py-3 text-sm font-medium text-on-surface hover:bg-white/5 hover:text-white transition-colors text-left"
+                  >
+                    {link.label}
+                  </button>
+                ) : (
+                  <a
+                    key={link.label}
+                    onClick={closeMobileMenu}
+                    href={link.href}
+                    className="rounded-2xl px-4 py-3 text-sm font-medium text-on-surface hover:bg-white/5 hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ),
+              )}
             </nav>
           </div>
         </div>
@@ -503,18 +530,29 @@ function Index() {
                       ? "#como-funciona"
                       : l === "Público-Alvo"
                         ? "#publico-alvo"
-                        : l === "Denunciar Burla"
-                          ? "#denunciar-burla"
+                        : l === "Denunciar"
+                          ? "#denunciar"
                           : "#";
 
                   return (
                     <li key={l}>
-                      <a
-                        href={href}
-                        className="text-on-surface-variant hover:text-white transition-colors text-sm"
-                      >
-                        {l}
-                      </a>
+                      {l === "Denunciar" ? (
+                        <button
+                          type="button"
+                          onClick={openDownloadModal}
+                          aria-haspopup="dialog"
+                          className="text-on-surface-variant hover:text-white transition-colors text-sm"
+                        >
+                          {l}
+                        </button>
+                      ) : (
+                        <a
+                          href={href}
+                          className="text-on-surface-variant hover:text-white transition-colors text-sm"
+                        >
+                          {l}
+                        </a>
+                      )}
                     </li>
                   );
                 })}
