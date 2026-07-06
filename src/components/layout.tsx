@@ -1,7 +1,6 @@
 import { useState, type ReactNode } from "react";
-import { Link, useLocation } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import sefiaLogo from "@/assets/sefia-logo.png";
-import { DownloadModal } from "@/components/download-modal";
 
 export function Icon({
   name,
@@ -20,12 +19,8 @@ export function Icon({
 }
 
 export function Layout({ children }: { children: ReactNode }) {
-  const [downloadModalOpen, setDownloadModalOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location = useLocation();
 
-  const openDownloadModal = () => setDownloadModalOpen(true);
-  const closeDownloadModal = () => setDownloadModalOpen(false);
   const toggleMobileMenu = () => setMobileMenuOpen((value) => !value);
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
@@ -34,12 +29,11 @@ export function Layout({ children }: { children: ReactNode }) {
     { label: "Como Funciona", href: "/#como-funciona" },
     { label: "Público-Alvo", href: "/#publico-alvo" },
     { label: "Perguntas-Frequentes", href: "/#faq" },
-    { label: "Denunciar", href: "#" },
+    { label: "Denunciar", href: "/denuncia" },
   ];
 
   return (
     <div className="bg-background text-on-surface min-h-screen flex flex-col">
-      <DownloadModal open={downloadModalOpen} onClose={closeDownloadModal} />
 
       {/* TopNav */}
       <header className="fixed top-0 w-full z-50 flex justify-center h-20 bg-background/80 backdrop-blur-xl border-b border-white/5 px-margin-page">
@@ -52,27 +46,15 @@ export function Layout({ children }: { children: ReactNode }) {
             />
           </Link>
           <nav className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) =>
-              link.label === "Denunciar" ? (
-                <button
-                  key={link.label}
-                  type="button"
-                  onClick={openDownloadModal}
-                  aria-haspopup="dialog"
-                  className="text-sm font-medium text-on-surface hover:text-primary-fixed-dim transition-colors"
-                >
-                  {link.label}
-                </button>
-              ) : (
-                <a
-                  key={link.label}
-                  className="text-sm font-medium text-on-surface hover:text-primary-fixed-dim transition-colors"
-                  href={link.href}
-                >
-                  {link.label}
-                </a>
-              ),
-            )}
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                className="text-sm font-medium text-on-surface hover:text-primary-fixed-dim transition-colors"
+                to={link.href}
+              >
+                {link.label}
+              </Link>
+            ))}
           </nav>
           <div className="md:hidden">
             <button
@@ -110,31 +92,16 @@ export function Layout({ children }: { children: ReactNode }) {
               </button>
             </div>
             <nav className="flex flex-col gap-4">
-              {navLinks.map((link) =>
-                link.label === "Denunciar" ? (
-                  <button
-                    key={link.label}
-                    type="button"
-                    onClick={() => {
-                      closeMobileMenu();
-                      openDownloadModal();
-                    }}
-                    aria-haspopup="dialog"
-                    className="rounded-2xl px-4 py-3 text-sm font-medium text-on-surface hover:bg-white/5 hover:text-white transition-colors text-left"
-                  >
-                    {link.label}
-                  </button>
-                ) : (
-                  <a
-                    key={link.label}
-                    onClick={closeMobileMenu}
-                    href={link.href}
-                    className="rounded-2xl px-4 py-3 text-sm font-medium text-on-surface hover:bg-white/5 hover:text-white transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                ),
-              )}
+              {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  onClick={closeMobileMenu}
+                  to={link.href}
+                  className="rounded-2xl px-4 py-3 text-sm font-medium text-on-surface hover:bg-white/5 hover:text-white transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </nav>
           </div>
         </div>
@@ -180,27 +147,25 @@ export function Layout({ children }: { children: ReactNode }) {
                       : l === "Público-Alvo"
                         ? "/#publico-alvo"
                         : l === "Denunciar"
-                          ? "#denunciar"
+                          ? "/denuncia"
                           : "/#";
 
                   return (
                     <li key={l}>
-                      {l === "Denunciar" ? (
-                        <button
-                          type="button"
-                          onClick={openDownloadModal}
-                          aria-haspopup="dialog"
-                          className="text-on-surface-variant hover:text-white transition-colors text-sm text-left w-full"
-                        >
-                          {l}
-                        </button>
-                      ) : (
+                      {href.includes("#") ? (
                         <a
                           href={href}
                           className="text-on-surface-variant hover:text-white transition-colors text-sm"
                         >
                           {l}
                         </a>
+                      ) : (
+                        <Link
+                          to={href as "/denuncia"}
+                          className="text-on-surface-variant hover:text-white transition-colors text-sm"
+                        >
+                          {l}
+                        </Link>
                       )}
                     </li>
                   );
