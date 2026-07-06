@@ -107,7 +107,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "Plataforma angolana que ajuda a identificar fraudes telefónicas e digitais antes que aconteçam. Consulte números e analise mensagens suspeitas.",
+          "Plataforma angolana que ajuda a identificar fraudes telefónicas e digitais antes que aconteçam. Proteja-se Antes da Fraude Acontecer.",
       },
       {
         property: "og:type",
