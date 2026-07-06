@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import sefiaLogo from "@/assets/sefia-logo.png";
+import { DownloadModal } from "@/components/download-modal";
 
 export function Icon({
   name,
@@ -20,6 +21,7 @@ export function Icon({
 
 export function Layout({ children }: { children: ReactNode }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [devModalOpen, setDevModalOpen] = useState(false);
 
   const toggleMobileMenu = () => setMobileMenuOpen((value) => !value);
   const closeMobileMenu = () => setMobileMenuOpen(false);
@@ -34,6 +36,7 @@ export function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="bg-background text-on-surface min-h-screen flex flex-col">
+      <DownloadModal open={devModalOpen} onClose={() => setDevModalOpen(false)} />
 
       {/* TopNav */}
       <header className="fixed top-0 w-full z-50 flex justify-center h-20 bg-background/80 backdrop-blur-xl border-b border-white/5 px-margin-page">
@@ -51,6 +54,7 @@ export function Layout({ children }: { children: ReactNode }) {
                 key={link.label}
                 className="text-sm font-medium text-on-surface hover:text-primary-fixed-dim transition-colors"
                 to={link.href}
+                onClick={link.label === "Denunciar" ? (e) => { e.preventDefault(); setDevModalOpen(true); } : undefined}
               >
                 {link.label}
               </Link>
@@ -95,7 +99,13 @@ export function Layout({ children }: { children: ReactNode }) {
               {navLinks.map((link) => (
                 <Link
                   key={link.label}
-                  onClick={closeMobileMenu}
+                  onClick={(e) => {
+                    closeMobileMenu();
+                    if (link.label === "Denunciar") {
+                      e.preventDefault();
+                      setDevModalOpen(true);
+                    }
+                  }}
                   to={link.href}
                   className="rounded-2xl px-4 py-3 text-sm font-medium text-on-surface hover:bg-white/5 hover:text-white transition-colors"
                 >
@@ -162,6 +172,7 @@ export function Layout({ children }: { children: ReactNode }) {
                       ) : (
                         <Link
                           to={href as "/denuncia"}
+                          onClick={l === "Denunciar" ? (e) => { e.preventDefault(); setDevModalOpen(true); } : undefined}
                           className="text-on-surface-variant hover:text-white transition-colors text-sm"
                         >
                           {l}
