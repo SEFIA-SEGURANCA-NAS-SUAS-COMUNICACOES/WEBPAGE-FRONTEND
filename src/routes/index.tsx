@@ -21,7 +21,7 @@ function Index() {
 
   const navLinks = [
     { label: "Início", href: "#" },
-    { label: "Como Funciona", href: "#como-funciona" },
+    { label: "Como-Funciona", href: "#como-funciona" },
     { label: "Público-Alvo", href: "#publico-alvo" },
     { label: "Perguntas-Frequentes", href: "#faq" },
     { label: "Denunciar", href: "#" },
